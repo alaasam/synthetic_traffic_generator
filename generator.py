@@ -10,7 +10,7 @@ from math import ceil
 from datetime import datetime, date, timedelta
 from os import path, makedirs
 
-from multiprocessing.pool import Pool, Process
+from multiprocessing import Pool, Process
 from log import debug
 
 # Directory that will contain the resulting synthetic traffic.
@@ -243,7 +243,7 @@ class User(object):
     #        self.session_arrival_datetimes_per_hour[next_arrival_datetime.hour].append(next_arrival_datetime)
     #      else:
     #        break
-    #    for hour, session_arrival_datetimes in self.session_arrival_datetimes_per_hour.iteritems():
+    #    for hour, session_arrival_datetimes in self.session_arrival_datetimes_per_hour.items():
     #      number_of_requests_within_hour = len(session_arrival_datetimes)
     #      # volume represents the total volume in the hour 'hour'
     #      volume_within_hour = self.traffic_model_per_hour[hour].volume_distribution.rvs()
@@ -262,7 +262,7 @@ class User(object):
     #        yield [session_volume, session_arrival_datetime]
 
     def generate_synthetic_traffic(self):
-        for hour, traffic_model in self.traffic_model_per_hour.iteritems():
+        for hour, traffic_model in self.traffic_model_per_hour.items():
             number_of_requests = traffic_model.number_of_requests_distribution.rvs()
 
             if number_of_requests > 0:
